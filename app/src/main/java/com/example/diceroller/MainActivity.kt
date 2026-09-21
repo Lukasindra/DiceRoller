@@ -36,9 +36,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.milliseconds
 
-// ============================================================
-// MainActivity: titik awal aplikasi
-// ============================================================
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,10 +50,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-// ============================================================
 // Fungsi pemetaan angka -> gambar (kontrol alur "when")
-// Ini memenuhi syarat wajib: memakai when untuk memilih gambar.
-// ============================================================
 fun diceImage(value: Int): Int {
     return when (value) {
         1 -> R.drawable.dice_1
@@ -127,7 +121,6 @@ fun DiceRollerApp() {
                     isRolling = true
 
                     // [SOUND EFFECT] mainkan suara saat mulai mengocok
-                    // Jika belum punya file suara, beri tanda // di depan baris ini
                     playDiceSound(context)
 
                     // Hasil akhir ditentukan lebih dulu memakai Random
@@ -135,7 +128,6 @@ fun DiceRollerApp() {
                     val final2 = (1..6).random()
 
                     // [ANIMASI] ganti gambar acak 10 kali, jeda 100 ms tiap gantian
-                    // sehingga terlihat seperti dadu sedang berputar
                     repeat(10) {
                         dice1 = (1..6).random()
                         dice2 = (1..6).random()
