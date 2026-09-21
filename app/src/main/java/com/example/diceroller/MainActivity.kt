@@ -20,6 +20,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.milliseconds
 
 // ============================================================
 // MainActivity: titik awal aplikasi
@@ -66,25 +68,18 @@ fun diceImage(value: Int): Int {
     }
 }
 
-// ============================================================
-// [NILAI TAMBAH: SOUND EFFECT]
-// Memutar suara dari res/raw/dice_sound.mp3
-// MediaPlayer dilepas (release) setelah selesai supaya hemat memori.
-// ============================================================
 fun playDiceSound(context: Context) {
     val player = MediaPlayer.create(context, R.raw.dice_sound)
     player?.setOnCompletionListener { it.release() }
     player?.start()
 }
 
-// ============================================================
-// Tampilan utama aplikasi
-// ============================================================
+
 @Composable
 fun DiceRollerApp() {
     // ---- STATE: nilai yang jika berubah akan memperbarui tampilan ----
-    var dice1 by remember { mutableStateOf(1) }       // nilai dadu pertama
-    var dice2 by remember { mutableStateOf(1) }       // [DADU GANDA] nilai dadu kedua
+    var dice1 by remember { mutableIntStateOf(1) }       // nilai dadu pertama
+    var dice2 by remember { mutableIntStateOf(1) }       // [DADU GANDA] nilai dadu kedua
     var isRolling by remember { mutableStateOf(false) } // true saat animasi berjalan
     val history = remember { mutableStateListOf<String>() } // [LOG RIWAYAT]
 
@@ -144,7 +139,7 @@ fun DiceRollerApp() {
                     repeat(10) {
                         dice1 = (1..6).random()
                         dice2 = (1..6).random()
-                        delay(100)
+                        delay(100.milliseconds)
                     }
 
                     // Tampilkan hasil akhir
